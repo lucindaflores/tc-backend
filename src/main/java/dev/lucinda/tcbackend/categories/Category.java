@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="categories")
-class Category {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,

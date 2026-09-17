@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @AutoConfigureMockMvc
 @Sql("/categoriesTesting.sql")
-class CategoryControllerTest {
+class CategoryControllerTests {
 
     private static String URL= "/categories";
     private final static String CATEGORIES_TABLE = "categories";
@@ -25,7 +25,7 @@ class CategoryControllerTest {
     private final JdbcClient jdbcClient;
 
     @Autowired
-    CategoryControllerTest(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
+    CategoryControllerTests(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
         this.mockMvcTester = mockMvcTester;
         this.jdbcClient = jdbcClient;
     }

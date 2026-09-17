@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="origins")
-class Origin {
+public class Origin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
