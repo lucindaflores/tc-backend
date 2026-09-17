@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -14,28 +15,40 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-@Sql("/categoriesTesting.sql")
-class CategoryControllerTest {
+@Sql("/originsTesting.sql")
+class OriginControllerTests {
 
-    private static String URL= "/categories";
-    private final static String CATEGORIES_TABLE = "categories";
+    private static String URL = "/origins";
+    private final static String ORIGINS_TABLE = "origins";
 
     private final MockMvcTester mockMvcTester;
 
     private final JdbcClient jdbcClient;
 
     @Autowired
-    CategoryControllerTest(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
+    OriginControllerTests(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
         this.mockMvcTester = mockMvcTester;
         this.jdbcClient = jdbcClient;
     }
 
+    /* Helpers */
+    // If the schema cannot be selected:
+    // FIX: Settings → Languages & Frameworks → SQL Resolution Scopes (top dropdpwn)
+    private long idOfTestOrigin1() {
+        return jdbcClient.sql("""
+            select id
+            from origins
+            where name = 'Test Origin 1'
+            """)
+                .query(Long.class)
+                .single();
+    }
 
     /* Tests */
     @Test
-    @DisplayName("GET /categories the count of rows in the table")
-    void findAllReturnsAllCategories() {
-        int expectedCount = JdbcTestUtils.countRowsInTable(jdbcClient, CATEGORIES_TABLE);
+    @DisplayName("GET /origins returns the count of all origins")
+    void findAllReturnsAllOrigins() {
+        int expectedCount = JdbcTestUtils.countRowsInTable(jdbcClient, ORIGINS_TABLE);
 
         mockMvcTester.get()
                 .uri(URL)
@@ -48,35 +61,26 @@ class CategoryControllerTest {
     }
 
     @Test
-    @DisplayName("GET /categories includes the category added by the test")
-    void findAllContainsTestCategory1() {
+    @DisplayName("GET /origins/{id} returns the correct origin")
+    void findByIdReturnsTestOrigin1() {
+        var originId = idOfTestOrigin1();
+
         mockMvcTester.get()
-                .uri(URL)
+                .uri(URL + "/" + originId)
                 .assertThat()
                 .hasStatusOk()
                 .bodyJson()
-                .extractingPath("$[*].name")
-                .asList()
-                .contains("Category1");
+                .extractingPath("$.name")
+                .isEqualTo("Test Origin 1");
     }
 
     @Test
-    @DisplayName("Find all returns an empty list when no categories exist")
-    void findAllWithoutCategoriesReturnsEmptyList() {
-        JdbcTestUtils.deleteFromTables(jdbcClient,  "order_details",
-                                                                "product_materials",
-                                                                "products",
-                                                                "categories"
-        );
-
+    @DisplayName("GET /origins/{id} with unknown ID returns 404")
+    void findByIdWithUnknownIdReturnsNotFound() {
         mockMvcTester.get()
-                .uri(URL)
+                .uri(URL + "/999999")
                 .assertThat()
-                .hasStatusOk()
-                .bodyJson()
-                .extractingPath("$")
-                .asList()
-                .isEmpty();
+                .hasStatus(HttpStatus.NOT_FOUND);
     }
 
 }

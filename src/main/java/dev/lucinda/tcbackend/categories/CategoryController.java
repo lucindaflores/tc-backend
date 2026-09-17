@@ -18,7 +18,7 @@ class CategoryController {
         this.categoryService = categoryService;
     }
 
-    /* DTO(s) */
+    /* DTOs */
     private record CategoryName(long id, String name) {
         CategoryName(Category category) {
             this(category.getId(), category.getName());
