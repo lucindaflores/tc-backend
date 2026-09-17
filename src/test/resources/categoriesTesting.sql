@@ -1,2 +1,3 @@
 INSERT INTO categories(name)
-VALUES('Category1');
+VALUES('Test Category 1'),
+      ('Test Category 2') ;

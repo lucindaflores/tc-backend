@@ -61,7 +61,7 @@ class CategoryControllerTests {
                 .bodyJson()
                 .extractingPath("$[*].name")
                 .asList()
-                .contains("Category1");
+                .contains("Test Category 1");
     }
 
     @Test
