@@ -18,14 +18,14 @@ class CategoryController {
         this.categoryService = categoryService;
     }
 
-    /* DTOs */
+    /* DTO(s) */
     private record CategoryName(long id, String name) {
         CategoryName(Category category) {
             this(category.getId(), category.getName());
         }
     }
 
-    /* GET request that returns all the category names */
+    /* Requests */
     // GET http://localhost:8080/categories
     @GetMapping()
     List<CategoryName> findAll() {
@@ -35,4 +35,4 @@ class CategoryController {
                 .toList();
     }
 
-    }
+}

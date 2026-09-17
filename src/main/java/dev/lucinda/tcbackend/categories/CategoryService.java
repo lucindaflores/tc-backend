@@ -1,6 +1,5 @@
 package dev.lucinda.tcbackend.categories;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +15,9 @@ class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    /* Method that returns a list of all categories */
+    /* Methods */
     List<Category> findAll() {
-        return categoryRepository.findAll(Sort.by("name"));
+        return categoryRepository.findAll();
     }
 
 
