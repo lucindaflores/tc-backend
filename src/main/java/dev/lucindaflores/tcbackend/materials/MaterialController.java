@@ -1,6 +1,5 @@
-package dev.lucinda.tcbackend.materials;
+package dev.lucindaflores.tcbackend.materials;
 
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

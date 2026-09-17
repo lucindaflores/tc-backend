@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend;
+package dev.lucindaflores.tcbackend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend.materials;
+package dev.lucindaflores.tcbackend.materials;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

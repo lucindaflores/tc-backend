@@ -1,28 +1,28 @@
-package dev.lucinda.tcbackend.origins;
+package dev.lucindaflores.tcbackend.categories;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="origins")
-public class Origin {
+@Table(name="categories")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "originGenerator")
-    @SequenceGenerator(name = "originGenerator",
-            sequenceName = "originid",
-            allocationSize = 1)
+            generator = "categoryGenerator")
+    @SequenceGenerator(name = "categoryGenerator",
+            sequenceName = "categoryid",
+            allocationSize = 1) // increment by 1
     private long id;
 
     private String name;
 
 
     /* Constructor(s) */
-    Origin(String name) {
+    Category(String name) {
         this.name = name;
     }
 
-    protected Origin() { }
+    protected Category() { }
 
 
     /* Getters */

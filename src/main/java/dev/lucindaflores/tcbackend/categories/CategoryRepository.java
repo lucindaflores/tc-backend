@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend.categories;
+package dev.lucindaflores.tcbackend.categories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

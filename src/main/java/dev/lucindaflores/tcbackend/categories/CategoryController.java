@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend.categories;
+package dev.lucindaflores.tcbackend.categories;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

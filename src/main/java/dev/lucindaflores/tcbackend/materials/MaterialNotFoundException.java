@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend.materials;
+package dev.lucindaflores.tcbackend.materials;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

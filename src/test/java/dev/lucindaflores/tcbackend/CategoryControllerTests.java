@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend;
+package dev.lucindaflores.tcbackend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,35 +11,38 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
 @Sql("/categoriesTesting.sql")
 class CategoryControllerTests {
 
-    private static String URL= "/categories";
-    private final static String CATEGORIES_TABLE = "categories";
+    private static final String URL = "/categories";
+    private static final String CATEGORIES_TABLE = "categories";
 
     private final MockMvcTester mockMvcTester;
-
     private final JdbcClient jdbcClient;
 
     @Autowired
-    CategoryControllerTests(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
+    CategoryControllerTests(MockMvcTester mockMvcTester,
+                            JdbcClient jdbcClient) {
         this.mockMvcTester = mockMvcTester;
         this.jdbcClient = jdbcClient;
     }
 
-
     /* Tests */
     @Test
-    @DisplayName("GET /categories the count of rows in the table")
+    @DisplayName("GET /categories returns all categories")
     void findAllReturnsAllCategories() {
-        int expectedCount = JdbcTestUtils.countRowsInTable(jdbcClient, CATEGORIES_TABLE);
+        int expectedCount =
+                JdbcTestUtils.countRowsInTable(jdbcClient, CATEGORIES_TABLE);
 
-        mockMvcTester.get()
-                .uri(URL)
-                .assertThat()
+        var response = mockMvcTester.get()
+                .uri(URL);
+
+        assertThat(response)
                 .hasStatusOk()
                 .bodyJson()
                 .extractingPath("$[*].name")
@@ -50,9 +53,10 @@ class CategoryControllerTests {
     @Test
     @DisplayName("GET /categories includes the category added by the test")
     void findAllContainsTestCategory1() {
-        mockMvcTester.get()
-                .uri(URL)
-                .assertThat()
+        var response = mockMvcTester.get()
+                .uri(URL);
+
+        assertThat(response)
                 .hasStatusOk()
                 .bodyJson()
                 .extractingPath("$[*].name")
@@ -61,22 +65,24 @@ class CategoryControllerTests {
     }
 
     @Test
-    @DisplayName("Find all returns an empty list when no categories exist")
+    @DisplayName("GET /categories returns an empty list when no categories exist")
     void findAllWithoutCategoriesReturnsEmptyList() {
-        JdbcTestUtils.deleteFromTables(jdbcClient,  "order_details",
-                                                                "product_materials",
-                                                                "products",
-                                                                "categories"
+        JdbcTestUtils.deleteFromTables(
+                jdbcClient,
+                "order_details",
+                "product_materials",
+                "products",
+                "categories"
         );
 
-        mockMvcTester.get()
-                .uri(URL)
-                .assertThat()
+        var response = mockMvcTester.get()
+                .uri(URL);
+
+        assertThat(response)
                 .hasStatusOk()
                 .bodyJson()
                 .extractingPath("$")
                 .asList()
                 .isEmpty();
     }
-
 }

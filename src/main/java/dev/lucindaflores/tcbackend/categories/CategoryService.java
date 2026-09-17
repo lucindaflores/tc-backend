@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend.categories;
+package dev.lucindaflores.tcbackend.categories;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

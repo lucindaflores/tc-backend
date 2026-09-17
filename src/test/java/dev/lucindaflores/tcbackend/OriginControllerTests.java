@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend;
+package dev.lucindaflores.tcbackend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,34 +12,36 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
 @Sql("/originsTesting.sql")
 class OriginControllerTests {
 
-    private static String URL = "/origins";
-    private final static String ORIGINS_TABLE = "origins";
+    private static final String URL = "/origins";
+    private static final String ORIGINS_TABLE = "origins";
 
     private final MockMvcTester mockMvcTester;
-
     private final JdbcClient jdbcClient;
 
     @Autowired
-    OriginControllerTests(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
+    OriginControllerTests(MockMvcTester mockMvcTester,
+                          JdbcClient jdbcClient) {
         this.mockMvcTester = mockMvcTester;
         this.jdbcClient = jdbcClient;
     }
 
     /* Helpers */
     // If the schema cannot be selected:
-    // FIX: Settings → Languages & Frameworks → SQL Resolution Scopes (top dropdpwn)
+    // FIX: Settings → Languages & Frameworks → SQL Resolution Scopes (top dropdown)
     private long idOfTestOrigin1() {
         return jdbcClient.sql("""
-            select id
-            from origins
-            where name = 'Test Origin 1'
-            """)
+                SELECT id
+                FROM origins
+                WHERE name = 'Test Origin 1'
+                """)
                 .query(Long.class)
                 .single();
     }
@@ -48,11 +50,13 @@ class OriginControllerTests {
     @Test
     @DisplayName("GET /origins returns the count of all origins")
     void findAllReturnsAllOrigins() {
-        int expectedCount = JdbcTestUtils.countRowsInTable(jdbcClient, ORIGINS_TABLE);
+        int expectedCount =
+                JdbcTestUtils.countRowsInTable(jdbcClient, ORIGINS_TABLE);
 
-        mockMvcTester.get()
-                .uri(URL)
-                .assertThat()
+        var response = mockMvcTester.get()
+                .uri(URL);
+
+        assertThat(response)
                 .hasStatusOk()
                 .bodyJson()
                 .extractingPath("$[*].name")
@@ -65,9 +69,10 @@ class OriginControllerTests {
     void findByIdReturnsTestOrigin1() {
         var originId = idOfTestOrigin1();
 
-        mockMvcTester.get()
-                .uri(URL + "/" + originId)
-                .assertThat()
+        var response = mockMvcTester.get()
+                .uri(URL + "/" + originId);
+
+        assertThat(response)
                 .hasStatusOk()
                 .bodyJson()
                 .extractingPath("$.name")
@@ -77,9 +82,10 @@ class OriginControllerTests {
     @Test
     @DisplayName("GET /origins/{id} with unknown ID returns 404")
     void findByIdWithUnknownIdReturnsNotFound() {
-        mockMvcTester.get()
-                .uri(URL + "/999999")
-                .assertThat()
+        var response = mockMvcTester.get()
+                .uri(URL + "/999999");
+
+        assertThat(response)
                 .hasStatus(HttpStatus.NOT_FOUND);
     }
 

@@ -1,4 +1,4 @@
-package dev.lucinda.tcbackend.materials;
+package dev.lucindaflores.tcbackend.materials;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
