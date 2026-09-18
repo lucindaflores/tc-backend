@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @AutoConfigureMockMvc
 @Sql("/materialsTesting.sql")
-class MaterialsControllerTests {
+class MaterialControllerTests {
 
     private final static String URL= "/materials";
     private final static String MATERIALS_TABLE = "materials";
@@ -28,7 +28,7 @@ class MaterialsControllerTests {
     private final JdbcClient jdbcClient;
 
     @Autowired
-    MaterialsControllerTests(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
+    MaterialControllerTests(MockMvcTester mockMvcTester, JdbcClient jdbcClient) {
         this.mockMvcTester = mockMvcTester;
         this.jdbcClient = jdbcClient;
     }

@@ -1,6 +1,12 @@
 package dev.lucindaflores.tcbackend.materials;
 
+import dev.lucindaflores.tcbackend.products.Product;
 import jakarta.persistence.*;
+
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="materials")
@@ -19,6 +25,9 @@ public class Material {
     @Column(name = "name_spanish")
     String nameSpanish;
     String technique;
+
+    @ManyToMany(mappedBy = "materials")
+    private Set<Product> products = new LinkedHashSet<>();
 
     /* Constructor(s) */
     public Material(String name, String nameSpanish, String technique) {
@@ -45,6 +54,5 @@ public class Material {
     public String getTechnique() {
         return technique;
     }
-
 
 }

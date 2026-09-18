@@ -1,0 +1,17 @@
+INSERT INTO addresses(street, house_number, bus, city, state, postal_code, country, user_id)
+VALUES ('Test street 1',
+        '1',
+        '',
+        'Test City 1',
+        'Test State 1',
+        '00001',
+        'Test Country 1',
+        (SELECT id from users where email = 'email1@test.com')),
+       ('Test street 2',
+        '2',
+        '',
+        'Test City 2',
+        'Test State 2',
+        '00002',
+        'Test Country 2',
+        (SELECT id from users where email = 'email2@test.com'));

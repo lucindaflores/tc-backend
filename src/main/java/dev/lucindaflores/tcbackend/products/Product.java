@@ -6,7 +6,6 @@ import dev.lucindaflores.tcbackend.origins.Origin;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,7 +22,7 @@ public class Product {
     allocationSize = 1)
     private long id;
 
-    private String code; // It's unique
+    private String code; // unique
     private String name;
     private String description;
     private BigDecimal price; // >0
@@ -31,8 +30,6 @@ public class Product {
 
     @Column(name = "image_url")
     private String imageUrl;
-
-    private boolean active;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -47,7 +44,7 @@ public class Product {
             name = "product_materials",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "material_id"))
-    private Set<Material> materials = new LinkedHashSet<>();
+    private final Set<Material> materials = new LinkedHashSet<>();
 
 
     /* Constructor(s) */
@@ -57,7 +54,7 @@ public class Product {
             BigDecimal price,
             int stock,
             String imageUrl,
-            boolean isActive,
+            boolean active,
             Category category,
             Origin origin) {
         this.code = code;
@@ -66,7 +63,6 @@ public class Product {
         this.price = price;
         this.stock = stock;
         this.imageUrl = imageUrl;
-        this.active = isActive;
         this.category = category;
         this.origin = origin;
     }
@@ -101,10 +97,6 @@ public class Product {
 
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    public boolean active() {
-        return active;
     }
 
     // @ManyToOne
