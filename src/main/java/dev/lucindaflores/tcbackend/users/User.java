@@ -1,5 +1,6 @@
 package dev.lucindaflores.tcbackend.users;
 
+import dev.lucindaflores.tcbackend.orders.Order;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -36,6 +37,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Address> addresses = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders = new LinkedHashSet<>();
 
     /* Constructor(s) */
     public User(String email, String firstName, String lastName) {
@@ -77,5 +80,10 @@ public class User {
     public Set<Address> getAddresses() {
         return Collections.unmodifiableSet(addresses);
     }
+
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
+    }
+
 
 }
