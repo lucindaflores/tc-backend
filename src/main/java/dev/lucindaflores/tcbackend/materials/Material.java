@@ -3,9 +3,7 @@ package dev.lucindaflores.tcbackend.materials;
 import dev.lucindaflores.tcbackend.products.Product;
 import jakarta.persistence.*;
 
-import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -54,5 +52,6 @@ public class Material {
     public String getTechnique() {
         return technique;
     }
+
 
 }

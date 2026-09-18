@@ -1,6 +1,7 @@
 package dev.lucindaflores.tcbackend.products;
 
 import dev.lucindaflores.tcbackend.materials.Material;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -158,8 +159,6 @@ class ProductController {
                 .map(ProductCondensed::new)
                 .toList();
     }
-
-
 
 
 }

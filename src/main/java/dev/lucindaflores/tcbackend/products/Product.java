@@ -2,6 +2,7 @@ package dev.lucindaflores.tcbackend.products;
 
 import dev.lucindaflores.tcbackend.categories.Category;
 import dev.lucindaflores.tcbackend.materials.Material;
+import dev.lucindaflores.tcbackend.orders.OrderDetail;
 import dev.lucindaflores.tcbackend.origins.Origin;
 import jakarta.persistence.*;
 
@@ -45,6 +46,9 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "material_id"))
     private final Set<Material> materials = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<OrderDetail> orderDetails;
 
 
     /* Constructor(s) */
@@ -113,6 +117,30 @@ public class Product {
     public Set<Material> getMaterials() {
         return Collections.unmodifiableSet(materials);
     }
+
+    /* @OneToMany */
+    public Set<OrderDetail> getOrderDetails() {
+        return Collections.unmodifiableSet(orderDetails);
+    }
+
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+
+    /* Functions */
+    public void decreaseStock(int value) {
+        if (this.stock < value) {
+            throw new NotEnoughProductsException(this.getId());
+        }
+
+        stock -= value;
+    }
+
+    public void increaseStock(int value) {
+        this.stock += value;
+    }
+
 
     /* Equals & Hashcode */
     public boolean equals(Object object) {

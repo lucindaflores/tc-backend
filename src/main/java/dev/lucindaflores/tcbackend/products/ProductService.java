@@ -1,8 +1,11 @@
 package dev.lucindaflores.tcbackend.products;
 
 
+import dev.lucindaflores.tcbackend.categories.CategoryNotFoundException;
 import dev.lucindaflores.tcbackend.categories.CategoryRepository;
+import dev.lucindaflores.tcbackend.materials.MaterialNotFoundException;
 import dev.lucindaflores.tcbackend.materials.MaterialRepository;
+import dev.lucindaflores.tcbackend.origins.OriginNotFoundException;
 import dev.lucindaflores.tcbackend.origins.OriginRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -56,5 +59,6 @@ class ProductService {
     List<Product> findByMaterialIds(Set<Long> materialIds) {
         return productRepository.findDistinctByMaterials_IdIn(materialIds);
     }
+
 
 }

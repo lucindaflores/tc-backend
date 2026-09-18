@@ -80,7 +80,7 @@ class MaterialControllerTests {
     @DisplayName("GET /materials/{id} with unknown ID returns 404")
     void findByIdWithUnknownIdReturnsNotFound() {
         var response = mockMvcTester.get()
-                .uri(URL + "/999999");
+                .uri(URL + "/" + Long.MAX_VALUE);
 
         assertThat(response)
                 .hasStatus(HttpStatus.NOT_FOUND);
@@ -108,4 +108,5 @@ class MaterialControllerTests {
         assertThat(response)
                 .hasStatus(HttpStatus.NOT_FOUND);
     }
+
 }
