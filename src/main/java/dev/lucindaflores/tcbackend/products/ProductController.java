@@ -54,7 +54,6 @@ class ProductController {
             BigDecimal price,
             int stock,
             String imageUrl,
-            boolean active,
             long categoryId,
             String categoryName,
             long originId,
@@ -68,7 +67,6 @@ class ProductController {
                     product.getPrice(),
                     product.getStock(),
                     product.getImageUrl(),
-                    product.active(),
 
                     product.getCategory().getId(),
                     product.getCategory().getName(),

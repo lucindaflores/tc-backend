@@ -1,6 +1,5 @@
 package dev.lucindaflores.tcbackend;
 
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@Sql({"/materialsTesting.sql",
-       "/categoriesTesting.sql",
+@Sql({"/categoriesTesting.sql",
        "/originsTesting.sql",
+        "/materialsTesting.sql",
        "/productsTesting.sql",
        "/productMaterials.sql"})
 @AutoConfigureMockMvc
@@ -86,7 +85,7 @@ class ProductControllerTest {
     @DisplayName("GET /products/{id} with unknown ID returns 404")
     void findByIdWithUnknownIdReturnsNotFound() {
         var response = mockMvcTester.get()
-                .uri(URL + "/9999");
+                .uri(URL + "/" + Long.MAX_VALUE);
 
         assertThat(response)
                 .hasStatus(HttpStatus.NOT_FOUND);
