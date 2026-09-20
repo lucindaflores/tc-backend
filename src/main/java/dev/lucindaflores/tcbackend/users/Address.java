@@ -1,9 +1,11 @@
 package dev.lucindaflores.tcbackend.users;
 
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name="addresses")
+@CrossOrigin
 public class Address {
 
     @Id

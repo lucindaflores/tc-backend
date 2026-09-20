@@ -6,6 +6,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("materials")
+@CrossOrigin
 class MaterialController {
 
     private final MaterialService materialService;

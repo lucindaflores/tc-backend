@@ -6,6 +6,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("origins")
+@CrossOrigin
 class OriginController {
 
     private final OriginService originService;
