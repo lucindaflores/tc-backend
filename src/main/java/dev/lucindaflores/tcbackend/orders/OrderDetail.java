@@ -13,7 +13,7 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "orderDetailGenerator")
     @SequenceGenerator(name = "orderDetailGenerator",
-            sequenceName = "detailid",
+            sequenceName = "orderdetailid",
             allocationSize = 1)
     private long id;
 
