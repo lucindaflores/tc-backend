@@ -153,8 +153,8 @@ class ProductController {
 
     // GET http://localhost:8080/products/bymaterials?materialIds=1,2,3
     @GetMapping("byMaterials")
-    List<ProductCondensed> findByMaterialIds(@RequestParam Set<Long> materialIds) {
-        return productService.findByMaterialIds(materialIds)
+    List<ProductCondensed> findByMaterialsIds(@RequestParam Set<Long> materialIds) {
+        return productService.findByMaterialsIds(materialIds)
                 .stream()
                 .map(ProductCondensed::new)
                 .toList();

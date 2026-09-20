@@ -56,7 +56,7 @@ class ProductService {
         return productRepository.findDistinctByMaterialsId(materialId);
     }
 
-    List<Product> findByMaterialIds(Set<Long> materialIds) {
+    List<Product> findByMaterialsIds(Set<Long> materialIds) {
         return productRepository.findDistinctByMaterials_IdIn(materialIds);
     }
 
